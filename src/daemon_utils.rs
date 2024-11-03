@@ -13,7 +13,11 @@ use nix::{
 pub fn start() -> bool {
     let curr_exe = env::current_exe().expect("Couldn't get current executable!");
     let mut cmd = Command::new("nohup");
-    let cmd = cmd.arg(curr_exe).arg("-d").arg("--no-fork").arg("-q");
+    let cmd = cmd
+        .arg(curr_exe)
+        .arg("--daemon").arg("true")
+        .arg("--no-fork").arg("true")
+        .arg("--quiet").arg("true");
     cmd.stdout(Stdio::null());
     cmd.stderr(Stdio::null());
     let status = cmd.spawn();
